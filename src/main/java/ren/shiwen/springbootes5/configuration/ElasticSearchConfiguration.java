@@ -40,7 +40,7 @@ public class ElasticSearchConfiguration {
 	static final String COMMA = ",";
 
 	@Bean
-	public Client esclient() throws UnknownHostException {
+	public Client esclient() throws NumberFormatException, UnknownHostException {
 
 		/*
 		 * 配置client settings
@@ -57,10 +57,12 @@ public class ElasticSearchConfiguration {
 			System.out.println(port);
 			Assert.hasText(hostName, "[Assertion failed] missing host name in 'clusterNodes'");
 			Assert.hasText(port, "[Assertion failed] missing port in 'clusterNodes'");
+
 			client.addTransportAddress(
 					new InetSocketTransportAddress(InetAddress.getByName(hostName), Integer.valueOf(port)));
+
 		}
-		
+
 		System.out.println(client.connectedNodes());
 		return client;
 
